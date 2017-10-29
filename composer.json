@@ -1,0 +1,31 @@
+{
+    "name": "gamelife/laravel-rbac",
+    "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
+    "type": "library",
+    "require": {
+        "php": ">=7.0.0",
+        "illuminate/console": "^5.5",
+        "illuminate/support": "^5.5",
+        "illuminate/database": "^5.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "gamelife",
+            "email": "1185694600@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Gamelife\\RBAC\\": "src/RBAC/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Gamelife\\RBAC\\RBACServiceProvider"
+            ]
+        }
+    }
+}
