@@ -8,7 +8,7 @@ Role-based Permissions for Laravel 5.5+
 
 1. In order to install Laravel 5 `laravel-rbac`, just add the following to your `composer.json`. Then run `composer update`:
 
-        gamelife/laravel-rbac:dev-master
+        "gamelife/laravel-rbac":"dev-master"
    
    or run command in the console `composer require gamelife/laravel-rbac:dev-master`.
 
@@ -122,7 +122,7 @@ Role-based Permissions for Laravel 5.5+
     - ability, check a user whether has access to do something;
     
             $user->ability("admin,common", "create-user,update-user", [
-                "validate_all" => false,  # false means or, true means and, default: false
+                "validate_all" => false,             # false means or, true means and, default: false
                 "return_type" => boolean|array|both, # return type, default boolean
             ]);
             
@@ -158,7 +158,12 @@ Role-based Permissions for Laravel 5.5+
         
         app()->make('rbac')->hasPermissions($roles);
         
-        app()->make('rbac')->ability($roles);
+        app()->make('rbac')->ability($roles, $permissions, [
+        
+            "validate_all" => false,
+            
+            "return_type" => boolean|array|both
+        ]);
 
 #### Blade Directive
 -------------------
