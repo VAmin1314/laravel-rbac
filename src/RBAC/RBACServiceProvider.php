@@ -25,7 +25,7 @@ class RBACServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([__DIR__ . '／../config/rbac.php' => config_path('rbac.php')], 'config');
+        $this->publishes([__DIR__ . '/../config/rbac.php' => config_path('rbac.php')], 'config');
 
         $this->loadMigrationsFrom(__DIR__ .'/../database/');
 
