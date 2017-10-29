@@ -15,7 +15,7 @@
             "email": "1185694600@qq.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "dev-master",
     "autoload": {
         "psr-4": {
             "Gamelife\\RBAC\\": "src/RBAC/"
