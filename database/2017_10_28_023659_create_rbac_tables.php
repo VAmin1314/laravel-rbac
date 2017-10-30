@@ -13,6 +13,7 @@ class CreateRbacTables extends Migration
      */
     public function up()
     {
+        Schema::defaultStringLength(191);
 
         Schema::create(config('rbac.table.roles'), function (Blueprint $table) {
 
@@ -25,7 +26,7 @@ class CreateRbacTables extends Migration
         Schema::create(config('rbac.table.permissions'), function (Blueprint $table) {
 
             $table->increments('id');
-            $table->string('name', 256)->unique();
+            $table->string('name', 190)->unique();
             $table->string('slug', 128);
             $table->string('http_method')->nullable();
             $table->text('http_path')->nullable();
