@@ -25,7 +25,10 @@
         "laravel": {
             "providers": [
                 "Gamelife\\RBAC\\RBACServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "RBAC": "Gamelife\\RBAC\\RBACFacade"
+            }
         }
     }
 }

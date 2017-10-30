@@ -164,6 +164,10 @@ Role-based Permissions for Laravel 5.5+
             
             "return_type" => boolean|array|both
         ]);
+        
+        RBAC::user()->roles()->get()->toArray();  # get an array of current user roles.
+        
+        RBAC::hasRoles($roles);                   # as same as app()->make('rbac')->hasRoles($roles);
 
 #### Blade Directive
 -------------------

@@ -25,8 +25,8 @@ class CreateRbacTables extends Migration
         Schema::create(config('rbac.table.permissions'), function (Blueprint $table) {
 
             $table->increments('id');
-            $table->string('name', 50)->unique();
-            $table->string('slug', 50);
+            $table->string('name', 256)->unique();
+            $table->string('slug', 128);
             $table->string('http_method')->nullable();
             $table->text('http_path')->nullable();
             $table->timestamps();

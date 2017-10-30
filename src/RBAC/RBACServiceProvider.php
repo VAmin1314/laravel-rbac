@@ -18,6 +18,10 @@ class RBACServiceProvider extends ServiceProvider
         'ability' => Ability::class,
     ];
 
+    protected $commands = [
+        'Gamelife\RBAC\Console\PermissionGenerateCommand',
+    ];
+
     /**
      * Bootstrap the application services.
      *
@@ -25,9 +29,9 @@ class RBACServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([__DIR__ . '/../config/rbac.php' => config_path('rbac.php')], 'config');
+        $this->publishes([__DIR__ . '/../../config/rbac.php' => config_path('rbac.php')], 'config');
 
-        $this->loadMigrationsFrom(__DIR__ .'/../database/');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/');
 
         $this->bladeDirectives();
     }
@@ -40,12 +44,14 @@ class RBACServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/rbac.php', 'rbac'
+            __DIR__ . '/../../config/rbac.php', 'rbac'
         );
 
         $this->registerRBAC();
 
         $this->registerMiddleware();
+
+        $this->commands($this->commands);
     }
 
     public function registerRBAC()
