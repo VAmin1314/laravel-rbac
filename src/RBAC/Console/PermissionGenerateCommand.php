@@ -20,7 +20,7 @@ class PermissionGenerateCommand extends RouteListCommand
      *
      * @var string
      */
-    protected $name = 'permission:generate';
+    protected $name = 'rbac:permission-generate';
 
     /**
      * The console command description.
