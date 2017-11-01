@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fudenglong
- * Date: 2017/10/29
- * Time: 上午10:34
- */
-
 namespace Gamelife\RBAC\Middleware;
 
 use Closure;

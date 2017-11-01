@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fudenglong
- * Date: 2017/10/28
- * Time: 下午7:25
- */
-
 namespace Gamelife\RBAC\Model;
 
 use Illuminate\Database\Eloquent\Model;

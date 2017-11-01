@@ -34,6 +34,22 @@ return [
 
     /**
      * ----------------------------------
+     *         specify permission model
+     * ----------------------------------
+     *
+     */
+    'permission_model' => 'Gamelife\RBAC\Model\Permission',
+
+    /**
+     * ----------------------------------
+     *         specify role model
+     * ----------------------------------
+     *
+     */
+    'role_model' => 'Gamelife\RBAC\Model\Role',
+
+    /**
+     * ----------------------------------
      *          specify constraint
      * ----------------------------------
      */

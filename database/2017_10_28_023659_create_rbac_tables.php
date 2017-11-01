@@ -36,37 +36,47 @@ class CreateRbacTables extends Migration
 
         Schema::create(config('rbac.table.role_users'), function (Blueprint $table){
 
-            $table->integer('role_id', false, true);
-            $table->integer('user_id', false, true);
-            $table->unique(['role_id', 'user_id']);
+            $table->integer(config('rbac.constraint.role_users.role_id'), false, true);
+            $table->integer(config('rbac.constraint.role_users.user_id'), false, true);
+            $table->unique([config('rbac.constraint.role_users.role_id'),
+                config('rbac.constraint.role_users.user_id')]);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on(config('rbac.table.users'))->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on(config('rbac.table.roles'))->onDelete('cascade');
+            $table->foreign(config('rbac.constraint.role_users.user_id'))->references('id')
+                  ->on(config('rbac.table.users'))->onDelete('cascade');
+
+            $table->foreign(config('rbac.constraint.role_users.role_id'))->references('id')
+                  ->on(config('rbac.table.roles'))->onDelete('cascade');
         });
 
         Schema::create(config('rbac.table.role_permissions'), function (Blueprint $table) {
 
-            $table->integer('role_id', false, true);
-            $table->integer('permission_id', false, true);
-            $table->unique(['role_id', 'permission_id']);
+            $table->integer(config('rbac.constraint.role_permissions.role_id'), false, true);
+            $table->integer(config('rbac.constraint.role_permissions.permission_id'), false, true);
+            $table->unique([config('rbac.constraint.role_permissions.role_id'),
+                config('rbac.constraint.role_permissions.permission_id')]);
             $table->timestamps();
 
-            $table->foreign('permission_id')->references('id')->on(config('rbac.table.permissions'))->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on(config('rbac.table.roles'))->onDelete('cascade');
+            $table->foreign(config('rbac.constraint.role_permissions.permission_id'))->references('id')
+                  ->on(config('rbac.table.permissions'))->onDelete('cascade');
+            $table->foreign(config('rbac.constraint.role_permissions.role_id'))->references('id')
+                  ->on(config('rbac.table.roles'))->onDelete('cascade');
 
 
         });
 
         Schema::create(config('rbac.table.user_permissions'), function (Blueprint $table){
 
-            $table->integer('user_id', false, true);
-            $table->integer('permission_id', false, true);
-            $table->unique(['user_id', 'permission_id']);
+            $table->integer(config('rbac.constraint.user_permissions.user_id'), false, true);
+            $table->integer(config('rbac.constraint.user_permissions.permission_id'), false, true);
+            $table->unique([config('rbac.constraint.user_permissions.user_id'),
+                config('rbac.constraint.user_permissions.permission_id')]);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on(config('rbac.table.users'))->onDelete('cascade');
-            $table->foreign('permission_id')->references('id')->on(config('rbac.table.permissions'))->onDelete('cascade');
+            $table->foreign(config('rbac.constraint.user_permissions.user_id'))->references('id')
+                  ->on(config('rbac.table.users'))->onDelete('cascade');
+            $table->foreign(config('rbac.constraint.user_permissions.permission_id'))->references('id')
+                  ->on(config('rbac.table.permissions'))->onDelete('cascade');
 
         });
     }
