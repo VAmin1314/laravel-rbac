@@ -1,17 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fudenglong
- * Date: 2017/10/30
- * Time: 下午9:23
- */
-
 namespace Gamelife\RBAC\Console;
 
 use Gamelife\RBAC\Model\Permission;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Console\RouteListCommand;
+use PhpParser\Node\Stmt\Return_;
 
 class PermissionGenerateCommand extends RouteListCommand
 {
@@ -55,23 +49,26 @@ class PermissionGenerateCommand extends RouteListCommand
 
     public function handle()
     {
-        $permissions = $this->getPermissions();
-        $this->table(['name', 'slug', 'http_method', 'http_path'], $permissions);
+        $systemPermissions = $this->getSystemPermissions();
+        $this->info("\nAll permissions has existed as follows:\n");
+        $this->table(['id', 'name', 'slug', 'http_method', 'http_path', 'created_at', 'updated_at'],
+            $systemPermissions);
 
-        if ($this->confirm('Confirm to generate permissions?')) {
-            foreach ($permissions as $permission) {
-                if (!Permission::getByName($permission['name'])) {
-                    $model = new Permission();
-                    $model->name = $permission['name'];
-                    $model->slug = $permission['slug'];
-                    $model->http_path = $permission['http_path'];
-                    $model->http_method = $permission['http_method'];
-                    $model->save();
-                }
-            }
-        }
+        $systemPermissionNames = collect($systemPermissions)->pluck('name')->all();
+
+        $permissions = collect($this->getPermissions())->filter(function ($item, $index) use ($systemPermissionNames){
+            return !in_array($item['name'], $systemPermissionNames);
+        })->all();
+        $this->info("\nNew add permissions as follows:\n");
+        $this->table(['name', 'slug', 'http_method', 'http_path'], $permissions);
+        $this->createNewPermissions($permissions);
     }
 
+    /**
+     * Get all system permissions by routes.
+     *
+     * @return array
+     */
     public function getPermissions()
     {
         $permissions = [];
@@ -86,5 +83,36 @@ class PermissionGenerateCommand extends RouteListCommand
         }
 
         return $permissions;
+    }
+
+    /**
+     * Create new permissions.
+     *
+     * @param array $permissions
+     */
+    public function createNewPermissions(array $permissions)
+    {
+        if ($this->confirm('Confirm to generate permissions?')) {
+            foreach ($permissions as $permission) {
+                if (!Permission::getByName($permission['name'])) {
+                    $model = new Permission();
+                    $model->name = $permission['name'];
+                    $model->slug = $permission['slug'];
+                    $model->http_path = $permission['http_path'];
+                    $model->http_method = $permission['http_method'];
+                    $model->save();
+                }
+            }
+        }
+    }
+
+    /**
+     * Get System Permissions.
+     *
+     * @return array
+     */
+    public function getSystemPermissions(): array
+    {
+        return Permission::all()->toArray();
     }
 }

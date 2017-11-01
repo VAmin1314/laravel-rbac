@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fudenglong
- * Date: 2017/10/28
- * Time: 下午5:48
- */
-
 namespace Gamelife\RBAC\Model;
 
 use Illuminate\Database\Eloquent\Model;
@@ -32,7 +25,7 @@ class Role extends Model
     public function permissions()
     {
         return $this->belongsToMany(
-            'App\Component\RBAC\Model\Permission',
+            config('rbac.permission_model'),
             config('rbac.table.role_permissions'),
             config('rbac.constraint.role_permissions.role_id'),
             config('rbac.constraint.role_permissions.permission_id'));

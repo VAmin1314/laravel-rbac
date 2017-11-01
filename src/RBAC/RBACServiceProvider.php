@@ -20,6 +20,10 @@ class RBACServiceProvider extends ServiceProvider
 
     protected $commands = [
         'Gamelife\RBAC\Console\PermissionGenerateCommand',
+        'Gamelife\RBAC\Console\RoleCommand',
+        'Gamelife\RBAC\Console\UserRoleCommand',
+        'Gamelife\RBAC\Console\UserPermissionCommand',
+        'Gamelife\RBAC\Console\RolePermissionCommand',
     ];
 
     /**
@@ -93,7 +97,7 @@ class RBACServiceProvider extends ServiceProvider
             return "<?php if(app()->make('rbac')->ability($expression)): ?>";
         });
 
-        Blade::directive('ability', function ($expression){
+        Blade::directive('endability', function ($expression){
             return "<?php endif; ?>";
         });
     }

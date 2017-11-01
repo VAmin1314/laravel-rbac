@@ -185,19 +185,49 @@ Role-based Permissions for Laravel 5.5+
 2. permission
         
        @permission('create-user,update-user')
-           <p>admin</p>
+           <p>permission</p>
        @endpermission
        
        @permission('create-user,update-user', true)
-            <p>admin</p>
+            <p>permission</p>
        @endpermission
 
 3. ability
         
        @ability('admin,common', 'create-user,update-user')
-          <p>admin</p>
+          <p>ability</p>
        @endability
       
        @ability('admin,common', 'create-user,update-user', ['validate_all' => true])
-           <p>admin</p>
+           <p>ability</p>
        @endability
+
+
+#### Artisan commands
+---------------------
+
+1. `php artian rbac:permission-generate`，generate permissions by defined routes.
+
+2. `php artisan rbac:role`, view, create or delete roles.
+
+        php artisan rbac:role                                        view system roles.
+        php artisan rbac:role admin "common|common slug"  --create   create admin,common roles.
+        php artisan rbac:role admin common                --delete   delete admin,common roles.
+
+3. `php artisan rbac:role-permission`, For specify role, view, add or remove role permissions.
+
+        php artisan rbac:role-permission 1                    # view role-permissions by role id.
+        php artisan rbac:role-permission 1 1 2 3 4 --attach   # attach permission [1, 2, 3, 4] for role [1].
+        php artisan rbac:role-permission 1 1 2 3 4 --detach   # detach permission [1, 2, 3, 4] from role [1].
+
+4. `php artisan rbac:user-permission`, For specify user, view, add or remove user permissions.
+
+        php artisan rbac:user-permission 1                    # view user-permissions by user id.
+        php artisan rbac:user-permission 1 1 2 3 4 --attach   # attach permission [1, 2, 3, 4] for user [1].
+        php artisan rbac:user-permission 1 1 2 3 4 --detach   # detach permission [1, 2, 3, 4] from user [1].
+
+5. `php artisan rbac:user-role`, For specify user, view, add or remove user permissions.
+
+        php artisan rbac:user-role 1                          # view user-role by user id.
+        php artisan rbac:user-role 1 1 2 3 4 --attach         # attach role [1, 2, 3, 4] for user [1].
+        php artisan rbac:user-role 1 1 2 3 4 --detach         # detach role [1, 2, 3, 4] from user [1].

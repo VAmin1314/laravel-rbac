@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fudenglong
- * Date: 2017/10/28
- * Time: 下午9:01
- */
-
 namespace Gamelife\RBAC\Traits;
 
 use Gamelife\RBAC\Model\Permission;
@@ -21,7 +14,7 @@ trait RBACUser
     public function roles()
     {
         return $this->belongsToMany(
-            'Gamelife\RBAC\Model\Role',
+            config('rbac.role_model'),
             config('rbac.table.role_users'),
             config('rbac.constraint.role_users.user_id'),
             config('rbac.constraint.role_users.role_id'));
