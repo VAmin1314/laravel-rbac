@@ -21,10 +21,12 @@ Welcome help me improve laravel rbac.
 ### Changelog
 ---------------
 
-#### v0.2.1-rc (2017-11-01)
+#### v0.2.2-rc (2017-11-01)
 
 1. fix `ability` blade directive bug.
 
 2. add `artisan command` for quickly develop.
 
 3. improve dode and other.
+
+4. fix `ability` middleware  bug.

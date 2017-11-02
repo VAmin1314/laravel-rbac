@@ -15,7 +15,7 @@ class Role
 
         $validateAll = is_bool($validateAll) ? $validateAll : filter_var($validateAll, FILTER_VALIDATE_BOOLEAN);
         if (!$request->user() or !$request->user()->hasRoles($roles, $validateAll)) {
-            abort(403, '403 Forbidden');
+            abort(403);
         }
         return $next($request);
     }

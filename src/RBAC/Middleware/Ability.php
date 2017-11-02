@@ -14,7 +14,7 @@ class Ability
         $permissions = is_array($permissions) ? $permissions : explode(static::DELIMITER, $permissions);
         $validateAll = is_bool($validateAll) ? $validateAll : filter_var($validateAll, FILTER_VALIDATE_BOOLEAN);
         if (!$request->user() or ! $request->user()->ability($roles, $permissions, ['validate_all' => $validateAll])) {
-            abort(403, abort(403, '403 Forbidden'));
+            abort(403);
         }
         return $next($request);
     }
