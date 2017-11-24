@@ -1,11 +1,8 @@
 <?php
 namespace Gamelife\RBAC\Console;
 
-use Gamelife\RBAC\Model\Permission;
-
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Console\RouteListCommand;
-use PhpParser\Node\Stmt\Return_;
 
 class PermissionGenerateCommand extends RouteListCommand
 {
@@ -37,6 +34,15 @@ class PermissionGenerateCommand extends RouteListCommand
      */
     protected $router;
 
+    /**
+     *
+     * permission class name
+     *
+     * @var $permission
+     */
+
+    protected $permission;
+
 
     /**
      * PermissionCommand constructor.
@@ -45,6 +51,7 @@ class PermissionGenerateCommand extends RouteListCommand
     public function __construct(Router $router)
     {
         parent::__construct($router);
+        $this->permission = config('rbac.permission_model');
     }
 
     public function handle()
@@ -94,8 +101,8 @@ class PermissionGenerateCommand extends RouteListCommand
     {
         if ($this->confirm('Confirm to generate permissions?')) {
             foreach ($permissions as $permission) {
-                if (!Permission::getByName($permission['name'])) {
-                    $model = new Permission();
+                if (!($this->permission)::getByName($permission['name'])) {
+                    $model = new $this->permission;
                     $model->name = $permission['name'];
                     $model->slug = $permission['slug'];
                     $model->http_path = $permission['http_path'];
@@ -113,6 +120,6 @@ class PermissionGenerateCommand extends RouteListCommand
      */
     public function getSystemPermissions(): array
     {
-        return Permission::all()->toArray();
+        return (new $this->permission)->all()->toArray();
     }
 }
